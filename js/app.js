@@ -121,6 +121,7 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
     if (!this.query) return;
     PlayList.clear();
     $location.search('q', this.query);
+    $scope.title = q + ' - FMTube!';
     Tracks.get(this.query, function(tracks){
       angular.element('#list-intro').remove();
       angular.forEach(tracks, function(row, i){
