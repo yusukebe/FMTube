@@ -24,8 +24,6 @@ app.factory('Tracks', function($http) {
         if(data.toptracks.track) {
           callback(data.toptracks.track);
         }
-      }).error(function(error){
-        //console.log(error);
       });
       return tracks;
     }
@@ -132,11 +130,9 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
         $scope.play();
       }
     });
-    return false;
   };
   $scope.click = function(index){
     $scope.play(index);
-    return false;
   };
   $scope.active_class = function(index){
     if(this.playing && PlayList.index == index) return 'list-active';
