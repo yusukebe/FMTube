@@ -1,5 +1,17 @@
+@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans:400,700);
+
+.container, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Alegreya Sans', sans-serif;
+}
+h1 {
+  font-weight:bold;
+}
+a {
+  cursor: pointer;
+}
 .container {
   margin-bottom:80px;
+  width:980px;
 }
 #header {
   text-align:center;
@@ -17,22 +29,27 @@
 #form button {
   width:80px;
 }
+#list {
+  border-left: 1px solid #ccc;
+}
 .list-item {
   margin-bottom:5px;
 }
 .list-item img {
   border:1px solid #333;
-  margin-right:10px;
-  width:40px;
-  height:40px;
+  margin-right:4px;
+  max-width:20px;
+  max-height:20px;
+  width:20px;
+  height:20px;
   background-color:#ccc;
 }
 .list-item b {
-  margin-top:10px;
+  margin-top:1px;
 }
 .list-item a {
   display:block;
-  padding:4px 8px;
+  padding:5px;
   border:1px solid #ccc;
   border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -40,4 +57,17 @@
 }
 .list-item a:hover {
   background-color:#eee;
+}
+.list-item a.list-active {
+  color: #fff;
+  background-color:#666;
+  border:1px solid #000;
+}
+address {
+  font-style:italic;
+}
+#player {
+  width:600px;
+  height:400px;
+  background-color:#000;
 }
