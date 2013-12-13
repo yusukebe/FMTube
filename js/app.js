@@ -112,6 +112,29 @@ app.service('PlayList', function(){
 app.controller('controller', function($scope, $location, Tracks, YouTube, PlayList) {
   this.playing = false;
   $scope.title = 'FMTube!';
+  //XXX
+  $('#form .typeahead').typeahead({
+    name : 'artist',
+    remote : {
+      url: 'http://ws.audioscrobbler.com/2.0/?api_key=6a6281367c3ad09f1b4a7c15dc50675b'
+        + '&method=artist.search&limit=5&artist=%QUERY&format=json',
+      dataType : 'jsonp',
+      template: '<p><strong>{{name}}</strong></p>',
+      filter : function(res){
+        var results = [];
+        if(res.results.artistmatches) {
+          var artists = res.results.artistmatches.artist;
+          $.each(artists, function(){
+            results.push(this.name);
+          });
+        }
+        return results;
+      }
+    }
+  }).on('typeahead:selected', function (e, datum) {
+    this.submit(true);
+  });
+  ///XXX
   $scope.play = function(index){
     YouTube.play(PlayList.next(index), $scope.play);
     var track = PlayList.current_track();
@@ -121,11 +144,13 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
     }
   };
   $scope.submit = function(autoplay){
-    if (!this.query || typeof this.query == 'undefined') return;
+    this.artist = angular.element('.tt-query').val(); //XXX
+    if (!autoplay) angular.element('#form .typeahead').typeahead('setQuery', this.artist);
+    if (!this.artist || typeof this.artist == 'undefined') return;
     PlayList.clear();
-    $location.search('q', this.query);
-    $scope.title = this.query + ' - FMTube!';
-    Tracks.get(this.query, function(tracks){
+    $location.search('q', this.artist);
+    $scope.title = this.artist + ' - FMTube!';
+    Tracks.get(this.artist, function(tracks){
       angular.element('#list-intro').remove();
       angular.forEach(tracks, function(row, i){
         PlayList.add(row);
@@ -134,6 +159,7 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
       if(autoplay) {
         $scope.play();
       }
+      angular.element('.tt-dropdown-menu').hide();
     });
   };
   $scope.click = function(index){
@@ -144,7 +170,7 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
   };
   var q = $location.search().q;
   if(q) {
-    $scope.query = q;
+    $scope.artist = q;
     $scope.submit(false);
   }else{
     angular.element('#list-intro').fadeIn();

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title ng-bind="title">FMTube!</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/typeahead.js-bootstrap.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -11,6 +12,8 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <script src="js/jquery.js"></script>
+    <script src="js/typeahead.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-resource.min.js"></script>
     <script src="js/app.js"></script>
@@ -33,7 +36,9 @@
         <div id="form" class="col-md-4">
           <form role="form" ng-submit="submit(true)">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Artist name" ng-model="query" />
+              <input type="text" class="form-control typeahead"
+                     placeholder="Artist name"
+                     ng-model="artist" />
               <button type="submit" class="btn btn-default"><b>Play!</b></button>
             </div>
           </form>

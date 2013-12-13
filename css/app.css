@@ -17,7 +17,7 @@ a {
   text-align:center;
 }
 #form {
-  width:320px;
+  width:330px;
   margin:0 auto;
   float:none;
 }
@@ -26,7 +26,11 @@ a {
   width:200px;
   padding-left:10px;
 }
+#form .tt-hint {
+  margin:5px 9px;
+}
 #form button {
+  margin:11px 0 0 5px;
   width:80px;
 }
 #social-buttons {
