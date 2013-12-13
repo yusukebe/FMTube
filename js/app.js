@@ -89,7 +89,7 @@ app.service('PlayList', function(){
     return this.list[this.index];
   };
   this.next = function(index){
-    if(index) {
+    if(index || typeof index != 'undefined') {
       this.index = index;
     }else if(!this.ready) {
       this.index = 0;
