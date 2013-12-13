@@ -110,7 +110,7 @@ app.service('PlayList', function(){
 });
 
 app.controller('controller', function($scope, $location, Tracks, YouTube, PlayList) {
-  this.playing = false;
+  $scope.playing = false;
   $scope.title = 'FMTube!';
   //XXX
   $('#form .typeahead').typeahead({
@@ -131,8 +131,9 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
         return results;
       }
     }
-  }).on('typeahead:selected', function (e, datum) {
-    this.submit(true);
+  }).on('typeahead:selected typeahead:autocompleted', function (e, datum) {
+    $scope.artist = datum.value;
+    $scope.submit(true);
   });
   ///XXX
   $scope.play = function(index){
@@ -140,17 +141,17 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
     var track = PlayList.current_track();
     if(track) {
       $scope.title = track.name + ' by ' + track.artist.name + ' - FMTube!';
-      this.playing = true;
+      $scope.playing = true;
     }
   };
   $scope.submit = function(autoplay){
-    this.artist = $location.search().q || angular.element('.tt-query').val(); //XXX
-    if (!autoplay) angular.element('#form .typeahead').typeahead('setQuery', this.artist);
-    if (!this.artist || typeof this.artist == 'undefined') return;
+    $scope.artist = $scope.artist || angular.element('.tt-query').val(); //XXX
+    if (!$scope.artist || typeof $scope.artist == 'undefined') return;
+    if (!$scope.playing) angular.element('#form .typeahead').typeahead('setQuery', $scope.artist);
     PlayList.clear();
-    $location.search('q', this.artist);
-    $scope.title = this.artist + ' - FMTube!';
-    Tracks.get(this.artist, function(tracks){
+    $location.search('q', $scope.artist);
+    $scope.title = $scope.artist + ' - FMTube!';
+    Tracks.get($scope.artist, function(tracks){
       angular.element('#list-intro').remove();
       angular.forEach(tracks, function(row, i){
         PlayList.add(row);
@@ -166,10 +167,11 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
     $scope.play(index);
   };
   $scope.active_class = function(index){
-    if(this.playing && PlayList.index == index) return 'list-active';
+    if($scope.playing && PlayList.index == index) return 'list-active';
   };
   if($location.search().q) {
     $scope.submit(false);
+    $scope.artist = $location.search().q;
   }else{
     angular.element('#list-intro').fadeIn();
   }
