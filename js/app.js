@@ -144,7 +144,7 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
     }
   };
   $scope.submit = function(autoplay){
-    this.artist = angular.element('.tt-query').val(); //XXX
+    this.artist = $location.search().q || angular.element('.tt-query').val(); //XXX
     if (!autoplay) angular.element('#form .typeahead').typeahead('setQuery', this.artist);
     if (!this.artist || typeof this.artist == 'undefined') return;
     PlayList.clear();
@@ -168,12 +168,9 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
   $scope.active_class = function(index){
     if(this.playing && PlayList.index == index) return 'list-active';
   };
-  var q = $location.search().q;
-  if(q) {
-    $scope.artist = q;
+  if($location.search().q) {
     $scope.submit(false);
   }else{
     angular.element('#list-intro').fadeIn();
   }
 });
-
