@@ -43,32 +43,36 @@ app.service('YouTube', function($window, $http){
         callback : 'JSON_CALLBACK'
       }
     }).success(function(data){
-      data.feed.entry.sort(function(a,b){
-        return b['favoriteCount'] - a['favoriteCount'];
-      });
-      var permalink = data.feed.entry[0]['id']['$t'];
-      var id = permalink.match(/^.+\/(.+?)$/)[1];
-      if(this.ready) {
-        this.player.clearVideo();
-        this.player.loadVideoById(id);
-      }else{
-        this.player = new YT.Player('player', {
-          height: '400',
-          width: '600',
-          videoId : id,
-          playerVars: { 'autoplay': 1, 'rel': 0 },
-          events : { 
-            onStateChange : function (event){
-              if(event.data == YT.PlayerState.ENDED ) {
-                callback();
+      if(data.feed.entry) {
+        data.feed.entry.sort(function(a,b){
+          return b['favoriteCount'] - a['favoriteCount'];
+        });
+        var permalink = data.feed.entry[0]['id']['$t'];
+        var id = permalink.match(/^.+\/(.+?)$/)[1];
+        if(this.ready) {
+          this.player.clearVideo();
+          this.player.loadVideoById(id);
+        }else{
+          this.player = new YT.Player('player', {
+            height: '400',
+            width: '600',
+            videoId : id,
+            playerVars: { 'autoplay': 1, 'rel': 0 },
+            events : { 
+              onStateChange : function (event){
+                if(event.data == YT.PlayerState.ENDED ) {
+                  callback();
+                }
               }
             }
-          }
-        });
-        this.ready = true;
+          });
+        }
+      }else{
+        callback();
       }
+      this.ready = true;
     }).error(function(error){
-      console.log(error);
+      callback();
     });
   };
 });
@@ -105,7 +109,7 @@ app.service('PlayList', function(){
   };
 });
 
-app.controller('controller', function($scope, Tracks, YouTube, PlayList) {
+app.controller('controller', function($scope, $location, Tracks, YouTube, PlayList) {
   $scope.title = 'FMTube!';
   $scope.play = function(index){
     YouTube.play(PlayList.next(index), $scope.play);
@@ -115,6 +119,7 @@ app.controller('controller', function($scope, Tracks, YouTube, PlayList) {
   $scope.submit = function(){
     if (!this.query) return;
     PlayList.clear();
+    $location.search('q', this.query);
     Tracks.get(this.query, function(tracks){
       angular.forEach(tracks, function(row, i){
         PlayList.add(row);
