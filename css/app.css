@@ -29,11 +29,21 @@ a {
 #form button {
   width:80px;
 }
+#social-buttons {
+  width:370px;
+  margin:0 auto;
+  padding-left:20px;
+}
 #content {
   width:620px;
   float:left;
   padding-left:20px;
   margin-right:20px;
+}
+#list-intro {
+  font-family:'YuGothic', 'Yu Gothic', 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+  font-size:1.2em;
+  display:none;
 }
 #list {
   width:320px;

@@ -40,7 +40,17 @@
           </form>
         </div>
       </div>
-      <!-- /form-controller -->
+      <div id="social-buttons">
+        <span style="margin-right:4px;">
+          <a href="http://b.hatena.ne.jp/entry/http://yusukebe.github.io/FMTube/" class="hatena-bookmark-button" data-hatena-bookmark-title="FMTube!" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="en" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+        </span>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://yusukebe.github.io/FMTube/" data-text="FMTube!">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <span style="margin-left:-28px;">
+          <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fyusukebe.github.io%2FFMTube%2F&amp;width=150&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=21&amp;appId=640667512644377" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px; width:150px;" allowTransparency="true"></iframe>
+        </span>
+      </div>
+
       <hr />
 
       <div class="row">
@@ -48,6 +58,18 @@
           <div id="player"></div>
         </div>
         <div id="list">
+          <div id="list-intro">
+            <p><b>FMTube!</b>とはチョー簡単に使えるYouTubeミュージックプレイヤー。</p>
+            <p>
+              フォームにあなたの好きなアーティスト名を入れて<b>Play</b>ボタンを押すと
+              自動的にそのアーティストの曲一覧が現れ勝手にYouTube動画の再生がはじまります。
+              使い方は<b>コ・レ・だ・け</b>！
+            </p>
+            <p>
+              勉強用につくったので未熟なところがありますが、より高性能なWebサイトとして
+              <a href="http://kimi.la/">君のラジオ</a>というモノを運営しているのでそちらもよろしく！
+            </p>
+          </div>
           <div class="list-item" ng-repeat="track in tracks">
             <a class="clearfix" ng-click="click($index)" ng-class="active_class($index)">
               <img ng-src="{{ track.image[0]['#text'] }}" class="pull-left">

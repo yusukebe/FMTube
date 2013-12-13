@@ -142,6 +142,8 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
   if(q) {
     $scope.query = q;
     $scope.submit(false);
+  }else{
+    angular.element('#list-intro').fadeIn();
   }
 });
 
