@@ -90,7 +90,7 @@ app.service('PlayList', function(){
     }else if(!this.ready) {
       this.index = 0;
     }else{
-      if(this.index > this.list.length) {
+      if(this.index + 1 >= this.list.length ) {
         this.index = 0
       }else{
         this.index++;
