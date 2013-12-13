@@ -112,15 +112,14 @@ app.service('PlayList', function(){
 });
 
 app.controller('controller', function($scope, $location, Tracks, YouTube, PlayList) {
-  $scope.title = 'FMTube!';
-  var q = $location.search().q;
-  if(q) $scope.query = q;
+  this.playing = false;
   $scope.play = function(index){
     YouTube.play(PlayList.next(index), $scope.play);
     var track = PlayList.current_track();
     $scope.title = track.name + ' by ' + track.artist.name + ' - FMTube!';
+    this.playing = true;
   };
-  $scope.submit = function(){
+  $scope.submit = function(autoplay){
     if (!this.query) return;
     PlayList.clear();
     $location.search('q', this.query);
@@ -129,7 +128,9 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
         PlayList.add(row);
       });
       $scope.tracks = tracks;
-      $scope.play();
+      if(autoplay) {
+        $scope.play();
+      }
     });
     return false;
   };
@@ -138,7 +139,13 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
     return false;
   };
   $scope.active_class = function(index){
-    if(PlayList.index == index) return 'list-active';
+    if(this.playing && PlayList.index == index) return 'list-active';
   };
+  $scope.title = 'FMTube!';
+  var q = $location.search().q;
+  if(q) {
+    $scope.query = q;
+    $scope.submit(false);
+  }
 });
 
