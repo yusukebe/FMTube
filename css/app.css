@@ -29,10 +29,20 @@ a {
 #form button {
   width:80px;
 }
+#content {
+  width:620px;
+  float:left;
+  padding-left:20px;
+  margin-right:20px;
+}
 #list {
+  width:320px;
+  float:left;
+  padding-left:20px;
   border-left: 1px solid #ccc;
 }
 .list-item {
+  width:300px;
   margin-bottom:5px;
 }
 .list-item img {

@@ -44,10 +44,10 @@
       <hr />
 
       <div class="row">
-        <div class="col-md-8">
+        <div id="content">
           <div id="player"></div>
         </div>
-        <div id="list" class="col-md-4">
+        <div id="list">
           <div class="list-item" ng-repeat="track in tracks">
             <a class="clearfix" ng-click="click($index)" ng-class="active_class($index)">
               <img ng-src="{{ track.image[0]['#text'] }}" class="pull-left">
