@@ -21,7 +21,9 @@ app.factory('Tracks', function($http) {
           artist : query
         }
       }).success(function(data){
-        callback(data.toptracks.track);
+        if(data.toptracks.track) {
+          callback(data.toptracks.track);
+        }
       }).error(function(error){
         console.log(error);
       });
@@ -111,6 +113,8 @@ app.service('PlayList', function(){
 
 app.controller('controller', function($scope, $location, Tracks, YouTube, PlayList) {
   $scope.title = 'FMTube!';
+  var q = $location.search().q;
+  if(q) $scope.query = q;
   $scope.play = function(index){
     YouTube.play(PlayList.next(index), $scope.play);
     var track = PlayList.current_track();
