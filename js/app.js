@@ -25,7 +25,7 @@ app.factory('Tracks', function($http) {
           callback(data.toptracks.track);
         }
       }).error(function(error){
-        console.log(error);
+        //console.log(error);
       });
       return tracks;
     }
