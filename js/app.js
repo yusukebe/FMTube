@@ -10,7 +10,6 @@ app.run(function(){
 app.factory('Tracks', function($http) {
   return {
     get : function(query, callback) {
-      tracks = [];
       $http.jsonp('http://ws.audioscrobbler.com/2.0/', {
         params : {
           api_key : '6a6281367c3ad09f1b4a7c15dc50675b',
@@ -21,11 +20,12 @@ app.factory('Tracks', function($http) {
           artist : query
         }
       }).success(function(data){
-        if(data.toptracks.track) {
+        if(data.toptracks) {
           callback(data.toptracks.track);
         }
+        return [];
       });
-      return tracks;
+      return [];
     }
   };
 });
@@ -111,17 +111,20 @@ app.service('PlayList', function(){
 
 app.controller('controller', function($scope, $location, Tracks, YouTube, PlayList) {
   this.playing = false;
+  $scope.title = 'FMTube!';
   $scope.play = function(index){
     YouTube.play(PlayList.next(index), $scope.play);
     var track = PlayList.current_track();
-    $scope.title = track.name + ' by ' + track.artist.name + ' - FMTube!';
-    this.playing = true;
+    if(track) {
+      $scope.title = track.name + ' by ' + track.artist.name + ' - FMTube!';
+      this.playing = true;
+    }
   };
   $scope.submit = function(autoplay){
-    if (!this.query) return;
+    if (!this.query || typeof this.query == 'undefined') return;
     PlayList.clear();
     $location.search('q', this.query);
-    $scope.title = q + ' - FMTube!';
+    $scope.title = this.query + ' - FMTube!';
     Tracks.get(this.query, function(tracks){
       angular.element('#list-intro').remove();
       angular.forEach(tracks, function(row, i){
@@ -139,7 +142,6 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
   $scope.active_class = function(index){
     if(this.playing && PlayList.index == index) return 'list-active';
   };
-  $scope.title = 'FMTube!';
   var q = $location.search().q;
   if(q) {
     $scope.query = q;
