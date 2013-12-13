@@ -144,8 +144,8 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
       $scope.playing = true;
     }
   };
-  $scope.submit = function(autoplay){
-    $scope.artist = $scope.artist || angular.element('.tt-query').val(); //XXX
+  $scope.submit = function(autoplay, query){
+    $scope.artist = query || angular.element('.tt-query').val(); //XXX
     if (!$scope.artist || typeof $scope.artist == 'undefined') return;
     if (!$scope.playing) angular.element('#form .typeahead').typeahead('setQuery', $scope.artist);
     PlayList.clear();
@@ -170,8 +170,8 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
     if($scope.playing && PlayList.index == index) return 'list-active';
   };
   if($location.search().q) {
-    $scope.submit(false);
     $scope.artist = $location.search().q;
+    $scope.submit(false);
   }else{
     angular.element('#list-intro').fadeIn();
   }
