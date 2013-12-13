@@ -119,10 +119,10 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
   };
   $scope.submit = function(autoplay){
     if (!this.query) return;
-    angular.element('#list-intro').remove(); 
     PlayList.clear();
     $location.search('q', this.query);
     Tracks.get(this.query, function(tracks){
+      angular.element('#list-intro').remove();
       angular.forEach(tracks, function(row, i){
         PlayList.add(row);
       });
