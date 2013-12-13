@@ -67,11 +67,11 @@ a {
 .list-item b {
   display:block;
   width:250px;
-  margin:1px 0 0 4px;
+  margin:0 0 0 4px;
   overflow:hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  height:1em;
+  height:1.2em;
 }
 .list-item a {
   display:block;
