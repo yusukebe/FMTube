@@ -119,6 +119,7 @@ app.controller('controller', function($scope, $location, Tracks, YouTube, PlayLi
   };
   $scope.submit = function(autoplay){
     if (!this.query) return;
+    angular.element('#list-intro').fadeIn();
     PlayList.clear();
     $location.search('q', this.query);
     Tracks.get(this.query, function(tracks){
