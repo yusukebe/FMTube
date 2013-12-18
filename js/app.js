@@ -39,6 +39,7 @@ app.service('YouTube', function($window, $http){
       params : {
         q: query + ' -みた -コピ -カラオケ -ピアノ',
         'max-results' : 2,
+        format : 5,
         alt : 'json-in-script',
         callback : 'JSON_CALLBACK'
       }
