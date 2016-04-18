@@ -38,10 +38,9 @@ class Form extends React.Component {
     };
   }
 
-  handleChange(text) {
-    this.setState({
-      value: text
-    });
+  handleKeyDown(e) {
+    if(e.keyCode == 229) return;
+    const text = this.state.value;
     if(!text || text == '') return;
     $.ajax({
       url: 'http://ws.audioscrobbler.com/2.0/',
@@ -67,11 +66,14 @@ class Form extends React.Component {
       }
     });
   }
+  
+  handleChange(text) {
+    if(!text || text == '') return;
+    this.setState({ value: text});
+  }
 
   handleNewRequest(text) {
-    this.setState({
-      value: text
-    });
+    this.setState({ value: text });
   }
 
   handleSubmit(e) {
@@ -87,9 +89,9 @@ class Form extends React.Component {
          onUpdateInput={this.handleChange.bind(this)}
          onNewRequest={this.handleNewRequest.bind(this)}
          dataSource={this.state.dataSource}
+         onKeyDown={this.handleKeyDown.bind(this)}
          filter={AutoComplete.caseInsensitiveFilter}
          style={{marginRight:'1rem'}}
-         searchText={this.state.value}
         >
         </AutoComplete>
         <RaisedButton label="Play" onClick={this.handleSubmit.bind(this)}/>
