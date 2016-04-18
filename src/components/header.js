@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {TextField} from 'material-ui';
 import {FlatButton} from 'material-ui';
 
@@ -7,7 +8,7 @@ class Header extends React.Component {
     return (
       <header>
         <Title/>
-        <Form/>
+        <Form onSubmitArtist={this.props.onSubmitArtist}/>
       </header>
     );
   }
@@ -22,12 +23,35 @@ class Title extends React.Component {
 }
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+  }
+
+  handleChange(e) {
+    this.setState({
+      value: e.target.value
+    });
+  }
+  
+  handleSubmit(e) {
+    const query = this.state.value;
+    if(!query) return;
+    this.props.onSubmitArtist(query);
+  }
+
   render() {
     return (
       <div style={{textAlign:'center'}}>
-        <TextField hintText="Artist Name" style={{marginRight:'1rem'}}>
+        <TextField hintText="Artist Name"
+         style={{marginRight:'1rem'}}
+         onChange={this.handleChange.bind(this)}
+         value={this.state.value}
+         onEnterKeyDown={this.handleSubmit.bind(this)}>
         </TextField>
-        <FlatButton label="Play" />
+        <FlatButton label="Play" onClick={this.handleSubmit.bind(this)}/>
       </div>
     )
   }

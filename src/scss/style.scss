@@ -1,5 +1,27 @@
+.clearfix {
+  *zoom: 1;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
 html {
   font-family: 'Roboto', sans-serif;
-  body {
+}
+
+#container {
+  width:960px;
+  margin:0 auto;
+  #player {
+    width:640px;
+    min-height:400px;
+    float:left;
+  }
+  #sidebar {
+    width:300px;
+    float:left;
+    @extend .clearfix;
   }
 }
