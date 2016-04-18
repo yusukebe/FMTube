@@ -72,7 +72,7 @@ class App extends React.Component {
           const title = item.snippet.title;
           const thumbnailUrl = item.snippet.thumbnails.high.url;
           this.setState({ video: { id: videoId, title: title, thumbnailUrl: thumbnailUrl} });
-          $('title').text(`${track.name} by ${track.artist} - FMTube!`);
+          $('title').text(`${track.name} by ${track.artist.name} - FMTube!`);
         }
       },
       error: (xhr, status, err) => {

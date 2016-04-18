@@ -20512,7 +20512,7 @@
 	            var title = item.snippet.title;
 	            var thumbnailUrl = item.snippet.thumbnails.high.url;
 	            _this3.setState({ video: { id: videoId, title: title, thumbnailUrl: thumbnailUrl } });
-	            (0, _jquery2.default)('title').text(track.name + ' by ' + track.artist + ' - FMTube!');
+	            (0, _jquery2.default)('title').text(track.name + ' by ' + track.artist.name + ' - FMTube!');
 	          }
 	        },
 	        error: function error(xhr, status, err) {
