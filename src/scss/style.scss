@@ -15,13 +15,18 @@ html {
   width:960px;
   margin:0 auto;
   #player {
-    width:640px;
+    width:630px;
     min-height:400px;
+    margin-right:10px;
     float:left;
   }
   #sidebar {
-    width:300px;
+    width:320px;
     float:left;
     @extend .clearfix;
   }
+}
+
+.selectedItem {
+  background-color: #ddd;
 }

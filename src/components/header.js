@@ -46,7 +46,7 @@ class Form extends React.Component {
     return (
       <div style={{textAlign:'center'}}>
         <TextField hintText="Artist Name"
-         style={{marginRight:'1rem'}}
+         style={{marginRight:'1rem', marginBottom:'1rem'}}
          onChange={this.handleChange.bind(this)}
          value={this.state.value}
          onEnterKeyDown={this.handleSubmit.bind(this)}>

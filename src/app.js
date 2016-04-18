@@ -9,7 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       tracks: [],
-      video: {}
+      video: {},
+      currentTrackNumber: null
     };
   }
 
@@ -27,7 +28,8 @@ class App extends React.Component {
       dataType: 'jsonp',
       success:(data) => {
         if(data.toptracks) {
-          this.setState({ tracks: data.toptracks.track});
+          this.setState({tracks: data.toptracks.track});
+          this.play();
         }
       },
       error: (xhr, status, err) => {
@@ -36,7 +38,21 @@ class App extends React.Component {
     });
   }
 
-  play(query) {
+  playNextTrack(){
+    let number = this.state.currentTrackNumber;
+    if(number >= 19) {
+      number = 0;
+    }else{
+      number = number + 1;
+    }
+    this.play(number);
+  }
+
+  play(number=0) {
+    this.setState({currentTrackNumber: number});
+    const track = this.state.tracks[number];
+    const query = `${track.artist.name} ${track.name}`;
+
     $.ajax({
       url: 'https://www.googleapis.com/youtube/v3/search',
       type: 'GET',
@@ -60,7 +76,7 @@ class App extends React.Component {
       },
       error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
-      }      
+      }
     });
   }
 
@@ -68,8 +84,13 @@ class App extends React.Component {
     return (
       <div id={'container'}>
         <Header onSubmitArtist={this.getTracks.bind(this)}/>
-        <Player video={this.state.video}/>
-        <Sidebar tracks={this.state.tracks} onRequestPlay={this.play.bind(this)}/>
+        <Player video={this.state.video}
+        onNextTrack={this.playNextTrack.bind(this)}
+        />
+        <Sidebar tracks={this.state.tracks}
+        currentTrackNumber={this.state.currentTrackNumber}
+        onRequestPlay={this.play.bind(this)}
+        />
       </div>
     );
   }
