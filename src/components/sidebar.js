@@ -2,14 +2,23 @@ import React from 'react';
 import {List} from 'material-ui';
 import {ListItem} from 'material-ui';
 import {Avatar} from 'material-ui';
+import {Paper} from 'material-ui';
 
 class Sidebar extends React.Component {
   render() {
     return (
       <div id={'sidebar'}>
-      <TrackList tracks={this.props.tracks} onRequestPlay={this.props.onRequestPlay}
-      currentTrackNumber={this.props.currentTrackNumber}
-      />
+      {(() => {
+        if(this.props.tracks.length > 0) {
+          return (
+            <Paper>
+            <TrackList tracks={this.props.tracks} onRequestPlay={this.props.onRequestPlay}
+            currentTrackNumber={this.props.currentTrackNumber}
+            />
+            </Paper>
+          );
+        }
+      })()}
       </div>
     )
   }

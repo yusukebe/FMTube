@@ -24,8 +24,8 @@ class Player extends React.Component {
 class YouTubePlayer extends React.Component {
   render() {
     const options = {
-      height: '330',
-      width: '610',
+      height: '300',
+      width: '100%',
       rel: '0',
       showinfo: '0'
     };

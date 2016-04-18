@@ -17,7 +17,6 @@ class App extends React.Component {
   getTracks(query) {
     $.ajax({
       url: 'http://ws.audioscrobbler.com/2.0/',
-      type: 'GET',
       data: {
         api_key : '6a6281367c3ad09f1b4a7c15dc50675b',
         method : 'artist.getTopTracks',
@@ -30,6 +29,7 @@ class App extends React.Component {
         if(data.toptracks) {
           this.setState({tracks: data.toptracks.track});
           this.play();
+          document.location.hash = "?q=" + encodeURIComponent(query);
         }
       },
       error: (xhr, status, err) => {
@@ -72,6 +72,7 @@ class App extends React.Component {
           const title = item.snippet.title;
           const thumbnailUrl = item.snippet.thumbnails.high.url;
           this.setState({ video: { id: videoId, title: title, thumbnailUrl: thumbnailUrl} });
+          $('title').text(`${track.name} by ${track.artist} - FMTube!`);
         }
       },
       error: (xhr, status, err) => {
