@@ -1,0 +1,30 @@
+{
+  "name": "fmtube",
+  "version": "0.2.0",
+  "description": "Listen and watch YouTube videos with recommendations from Last.fm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusukebe/FMTube.git"
+  },
+  "author": "Yusuke Wada",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yusukebe/FMTube/issues"
+  },
+  "homepage": "http://yusuke.be/FMTube",
+  "devDependencies": {
+    "babel-core": "^6.7.6",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "material-ui": "^0.14.4",
+    "node-sass": "^3.4.2",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-tap-event-plugin": "^1.0.0",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.0"
+  }
+}
